@@ -1,24 +1,68 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import FlashMessage from "react-native-flash-message";
+import "react-native-reanimated";
+import { Provider } from "react-redux";
+import { COLORS } from "../hooks/styles";
+import { store } from "../redux/store";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [loaded] = useFonts({
+    "San-Regular": require("../assets/fonts/Sen-Regular.ttf"),
+    "San-Medium": require("../assets/fonts/Sen-Medium.ttf"),
+    "San-SemiBold": require("../assets/fonts/Sen-SemiBold.ttf"),
+    "San-Bold": require("../assets/fonts/Sen-Bold.ttf"),
+    "San-ExtraBold": require("../assets/fonts/Sen-ExtraBold.ttf"),
+  });
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hide();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={DefaultTheme}>
+        {Platform.OS === "ios" && <View style={styles.statusBarBackground} />}
+        <>
+          <StatusBar
+            backgroundColor={COLORS.PRIMARY}
+            barStyle="light-content"
+            translucent={false}
+          />
+
+          <Stack screenOptions={{ headerShown: false, animation: "fade" }} />
+
+          <FlashMessage
+            position="top"
+            titleStyle={{ fontFamily: "San-SemiBold" }}
+            textStyle={{ fontFamily: "Inter" }}
+          />
+        </>
+      </ThemeProvider>
+    </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  statusBarBackground: {
+    height: Platform.OS === "ios" ? 60 : StatusBar.currentHeight ?? 24,
+    backgroundColor: COLORS.PRIMARY,
+  },
+});
