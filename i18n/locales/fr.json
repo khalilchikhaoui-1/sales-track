@@ -1,0 +1,16 @@
+{
+  "boarding": {
+    "board1": {
+      "title": "Gérez plusieurs entreprises, sans effort",
+      "description": "Créez et basculez entre plusieurs entreprises au même endroit. Chacune possède ses propres clients, articles, factures et paramètres."
+    },
+    "board2": {
+      "title": "Facturez plus vite, soyez payé plus tôt",
+      "description": "Créez des factures professionnelles en quelques minutes — ajoutez des clients et des articles, appliquez des taxes/remises et partagez des PDF soignés."
+    },
+    "board3": {
+      "title": "Suivez les rapports et analyses en toute simplicité",
+      "description": "Consultez des résumés clairs des ventes, taxes et performances. Comprenez les tendances et prenez de meilleures décisions grâce à des statistiques en temps réel."
+    }
+  }
+}

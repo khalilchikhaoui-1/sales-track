@@ -1,0 +1,16 @@
+{
+  "boarding": {
+    "board1": {
+      "title": "Run Multiple Businesses, Seamlessly",
+      "description": "Create and switch between businesses in one place. Each has its own clients, items, invoices, and settings."
+    },
+    "board2": {
+      "title": "Invoice Faster, Get Paid Sooner",
+      "description": "Build professional invoices in minutes—add clients and items, apply taxes/discounts, and share polished PDFs."
+    },
+    "board3": {
+      "title": "Track Reports & Insights Effortlessly",
+      "description": "View clear summaries of sales, taxes, and performance across your businesses. Understand trends and make smarter decisions with real-time stats."
+    }
+  }
+}

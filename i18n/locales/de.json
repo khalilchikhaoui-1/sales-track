@@ -1,0 +1,16 @@
+{
+  "boarding": {
+    "board1": {
+      "title": "Mehrere Unternehmen nahtlos verwalten",
+      "description": "Erstelle Unternehmen und wechsle bequem an einem Ort zwischen ihnen. Jedes hat eigene Kunden, Artikel, Rechnungen und Einstellungen."
+    },
+    "board2": {
+      "title": "Schneller fakturieren, früher bezahlt werden",
+      "description": "Erstelle in Minuten professionelle Rechnungen – Kunden und Artikel hinzufügen, Steuern/Rabatte anwenden und als saubere PDFs teilen."
+    },
+    "board3": {
+      "title": "Berichte und Einblicke mühelos im Blick",
+      "description": "Übersichtliche Zusammenfassungen zu Umsatz, Steuern und Performance über all deine Unternehmen. Erkenne Trends und triff bessere Entscheidungen mit Echtzeit-Statistiken."
+    }
+  }
+}

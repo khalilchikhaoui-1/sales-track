@@ -19,6 +19,7 @@ import board1 from "@/assets/images/board1.png";
 import board2 from "@/assets/images/board2.png";
 // @ts-expect-error – TS can’t resolve image modules here
 import board3 from "@/assets/images/board3.png";
+import { t } from "@/i18n";
 
 const { width, height } = Dimensions.get("window");
 const imageSize = width * 0.85;
@@ -28,23 +29,22 @@ interface IndicatorProps {
   scrollValue: Animated.Value;
 }
 
-const data = [
+type Slide = { title: string; description: string; image: any };
+
+const data: Slide[] = [
   {
-    title: "Run Multiple Businesses, Seamlessly",
-    description:
-      "Create and switch between businesses in one place. Each has its own clients, items, invoices, and settings.",
+    title: t("boarding.board1.title"),
+    description: t("boarding.board1.description"),
     image: board1,
   },
   {
-    title: "Invoice Faster, Get Paid Sooner",
-    description:
-      "Build professional invoices in minutes—add clients and items, apply taxes/discounts, and share polished PDFs.",
+    title: t("boarding.board2.title"),
+    description: t("boarding.board2.description"),
     image: board2,
   },
   {
-    title: "Track Reports & Insights Effortlessly",
-    description:
-      "View clear summaries of sales, taxes, and performance across your businesses. Understand trends and make smarter decisions with real-time stats.",
+    title: t("boarding.board3.title"),
+    description: t("boarding.board3.description"),
     image: board3,
   },
 ];
