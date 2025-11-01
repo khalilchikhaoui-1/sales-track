@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 
 export default function Settings() {
   const biz = useSelector(selectSelectedBusiness);
-  console.log("biz", biz);
 
   const logout = async () => {
     await signOut(getAuth());

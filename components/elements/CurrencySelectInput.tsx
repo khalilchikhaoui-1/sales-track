@@ -84,7 +84,6 @@ const CurrencySelectInput: React.FC<Props> = ({
         isSearchable
         primaryColor={COLORS.PRIMARY}
         autoCloseOnSelect
-        // Option row styling
         checkboxControls={{
           checkboxStyle: { borderColor: COLORS.GRAY, marginRight: 10 },
           checkboxUnselectedColor: COLORS.GRAY,
@@ -97,7 +96,6 @@ const CurrencySelectInput: React.FC<Props> = ({
           },
         }}
         dropdownStyle={styles.dropdown}
-        dropdownContainerStyle={{borderWidth:1, }}
         labelStyle={styles.dropdownLabel}
         placeholderStyle={styles.dropdownPlaceholder}
         selectedItemStyle={styles.dropdownSelected}
@@ -118,10 +116,8 @@ const CurrencySelectInput: React.FC<Props> = ({
           modalBackgroundStyle: styles.modalBackground,
         }}
       />
-
-      {/* Only show Display + Placement + Preview when a currency is selected */}
       {!!value && (
-        <>
+        <View style={{marginTop:-30}}>
           <Text style={styles.subLabel}>Display</Text>
           <View style={styles.chipsRow}>
             <Chip
@@ -155,7 +151,7 @@ const CurrencySelectInput: React.FC<Props> = ({
             <Text style={styles.previewLabel}>Preview</Text>
             <Text style={styles.previewValue}>{preview(PREVIEW_AMOUNT)}</Text>
           </View>
-        </>
+        </View>
       )}
     </View>
   );
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   dropdownLabel: { fontFamily: "San-Medium", color: COLORS.TEXT_DARK },
-  dropdownPlaceholder: { color: "#9CA3AF", fontFamily: "San-Medium" },
+  dropdownPlaceholder: { color: COLORS.INPUT_BACKGROUND, fontFamily: "San-Medium" },
   dropdownSelected: { fontFamily: "San-Medium", color: COLORS.TEXT_DARK },
 
   // Chevron
@@ -211,15 +207,15 @@ const styles = StyleSheet.create({
     fontFamily: "San-Medium",
     color: COLORS.TEXT_DARK,
     fontSize: 16,
-    marginTop: 8,
+    marginTop: 12,
   },
-  chipsRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  chipsRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop:10 },
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: COLORS.INPUT_BACKGROUND,
     backgroundColor: "#F3F4F6",
   },
   chipText: { fontFamily: "San-SemiBold", fontSize: 14, color: COLORS.TEXT_DARK },
@@ -228,14 +224,15 @@ const styles = StyleSheet.create({
   previewBox: {
     borderWidth: 1,
     borderColor: "#E5E7EB",
-    backgroundColor: "#FAFAFA",
+    backgroundColor: COLORS.INPUT_BACKGROUND,
     borderRadius: 10,
     padding: 12,
-    marginTop: 4,
+    marginTop: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+   
   },
-  previewLabel: { fontFamily: "San-Medium", color: "#9CA3AF" },
+  previewLabel: { fontFamily: "San-Medium", color: COLORS.TEXT_LIGHT, fontSize:16 },
   previewValue: { fontFamily: "San-SemiBold", fontSize: 18, color: COLORS.TEXT_DARK },
 });

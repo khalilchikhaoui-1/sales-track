@@ -38,7 +38,6 @@ export default function SignUp() {
         await user.updateProfile({ displayName: name.trim() });
       }
     } catch (error: any) {
-      console.log("Signup error:", error);
       let msg = "Something went wrong. Please try again.";
       if (error.code === "auth/email-already-in-use")
         msg = "This email is already registered.";

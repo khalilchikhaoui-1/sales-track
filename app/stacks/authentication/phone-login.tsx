@@ -74,7 +74,6 @@ const PhoneSignIn: React.FC = () => {
   // Confirm OTP
   const confirmCode = useCallback(
     async (code: string) => {
-      console.log("code : ", code);
       if (!confirm) return;
       try {
         setLoading(true);

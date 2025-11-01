@@ -36,7 +36,6 @@ export default function Login() {
       await signInWithEmailAndPassword(getAuth(), trimmedEmail, pwd);
       router.replace("/stacks/main/home");
     } catch (error: any) {
-      console.log("Login error:", error);
       let msg = "Something went wrong. Please try again.";
       switch (error.code) {
         case "auth/invalid-credential":

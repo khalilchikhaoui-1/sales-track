@@ -29,7 +29,6 @@ export default function CompleteProfile() {
       await user.reload(); // make sure Home sees the change
       router.replace("/stacks/main/home");
     } catch (e: any) {
-      console.log("CompleteProfile error:", e);
       Alert.alert("Update failed", e?.message ?? "Could not update your profile.");
     } finally {
       setSaving(false);
