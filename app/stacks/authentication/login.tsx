@@ -1,15 +1,14 @@
-import AuthLayout from "@/AuthLayout";
 import { PrimaryButton } from "@/components/elements/Buttons";
 import { Input } from "@/components/elements/Inputs";
 import { AppleIcon, GoogleIcon } from "@/components/icons/AppIcons";
 import { COLORS } from "@/hooks/styles";
-import auth from "@react-native-firebase/auth";
+import AuthLayout from "@/layouts/AuthLayout";
 import {
-  GoogleSignin,
-  statusCodes,
-} from "@react-native-google-signin/google-signin";
+  getAuth,
+  signInWithEmailAndPassword,
+} from "@react-native-firebase/auth";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -20,22 +19,10 @@ import {
   View,
 } from "react-native";
 
-const WEB_CLIENT_ID = "YOUR_WEB_CLIENT_ID.apps.googleusercontent.com";
-
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [email, setEmail] = useState("khalilchikhaoui8@gmail.com");
+  const [pwd, setPwd] = useState("21459708Az*");
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-
-  // Configure Google Sign-In once
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId: WEB_CLIENT_ID, // REQUIRED for Firebase
-      // offlineAccess: true, // optional
-      // forceCodeForRefreshToken: true, // optional
-    });
-  }, []);
 
   const onLogin = async () => {
     const trimmedEmail = email.trim().toLowerCase();
@@ -46,8 +33,8 @@ export default function Login() {
 
     setLoading(true);
     try {
-      await auth().signInWithEmailAndPassword(trimmedEmail, pwd);
-      router.replace("/stacks/home");
+      await signInWithEmailAndPassword(getAuth(), trimmedEmail, pwd);
+      router.replace("/stacks/main/home");
     } catch (error: any) {
       console.log("Login error:", error);
       let msg = "Something went wrong. Please try again.";
@@ -76,51 +63,7 @@ export default function Login() {
   };
 
   //TODO
-
-  const onGoogleLogin = async () => {
-    try {
-      setGoogleLoading(true);
-
-      // Ensure Google Play Services (Android)
-      await GoogleSignin.hasPlayServices({
-        showPlayServicesUpdateDialog: true,
-      });
-
-      // Trigger Google sign-in
-      const res = await GoogleSignin.signIn();
-      if (!res.data?.idToken) {
-        Alert.alert("Google Sign-In Failed", "No idToken returned.");
-        return;
-      }
-
-      // Create Firebase credential with the token
-      const googleCredential = auth.GoogleAuthProvider.credential(
-        res.data.idToken
-      );
-
-      // Sign in to Firebase
-      await auth().signInWithCredential(googleCredential);
-
-      router.replace("/stacks/home");
-    } catch (error: any) {
-      console.log("Google sign-in error:", error);
-      if (error?.code === statusCodes.SIGN_IN_CANCELLED) return;
-      if (error?.code === statusCodes.IN_PROGRESS) return;
-      if (error?.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        Alert.alert(
-          "Google Play Services",
-          "Google Play Services is not available or outdated."
-        );
-        return;
-      }
-      Alert.alert(
-        "Google Sign-In Error",
-        error?.message || "Something went wrong"
-      );
-    } finally {
-      setGoogleLoading(false);
-    }
-  };
+  const onGoogleLogin = async () => {};
   const onAppleLogin = async () => {};
 
   return (
@@ -165,7 +108,7 @@ export default function Login() {
             </Pressable>
           </View>
 
-          {/* Login CTA */}
+          {/* Login  */}
           <PrimaryButton
             label={loading ? "Logging in..." : "LOG IN"}
             onPress={onLogin}
@@ -192,24 +135,27 @@ export default function Login() {
             <View style={styles.divider} />
           </View>
 
+          {/** Phone */}
+          <Pressable
+            onPress={() => router.push("/stacks/authentication/phone-login")}
+            style={styles.phoneContainer}
+          >
+            <Text style={styles.phone}>Continue with phone</Text>
+          </Pressable>
+
           {/* Social buttons */}
           <View style={styles.socialContainer}>
             <Pressable
               style={styles.socialButton}
               onPress={onGoogleLogin}
-              disabled={loading || googleLoading}
+              disabled={loading}
             >
-              <GoogleIcon size={50} />
+              <GoogleIcon size={40} />
             </Pressable>
 
             {/* Leave Apple button present but not wired here; remove if you don’t need it */}
-            <Pressable
-              style={styles.socialButton}
-              onPress={() =>
-                Alert.alert("Coming soon", "Apple Sign-In not set up")
-              }
-            >
-              <AppleIcon size={50} />
+            <Pressable style={styles.socialButton} onPress={onAppleLogin}>
+              <AppleIcon size={40} />
             </Pressable>
           </View>
         </View>
@@ -262,4 +208,12 @@ const styles = StyleSheet.create({
     fontFamily: "San-Regular",
     fontSize: 15,
   },
+  phoneContainer: {
+    alignSelf: "center",
+    padding: 4,
+    paddingBottom: 2,
+    borderBottomWidth: 1,
+    borderColor: COLORS.TEXT_DARK,
+  },
+  phone: { fontFamily: "San-Medium", color: COLORS.TEXT_DARK, fontSize: 16 },
 });

@@ -11,7 +11,7 @@ export default function Index() {
     const auth = getAuth(app);
     onAuthStateChanged(auth, (u) => {
       if (u) {
-        router.replace("/stacks/home");
+        router.replace("/stacks/main/home");
       } else {
         router.replace("/stacks/authentication/boarding");
       }

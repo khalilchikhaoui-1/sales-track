@@ -1,4 +1,5 @@
 import { ArrowLeftIcon, AuthBackground } from "@/components/icons/AppIcons";
+import { COLORS } from "@/hooks/styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { ReactNode } from "react";
@@ -10,7 +11,6 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { COLORS } from "./hooks/styles";
 
 type AuthLayoutProps = {
   children: ReactNode;

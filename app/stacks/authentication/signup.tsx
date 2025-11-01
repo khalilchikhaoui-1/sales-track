@@ -1,10 +1,9 @@
-import React, { useMemo, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
-
-import AuthLayout from "@/AuthLayout";
 import { PrimaryButton } from "@/components/elements/Buttons";
 import { Input } from "@/components/elements/Inputs";
-import auth from "@react-native-firebase/auth";
+import AuthLayout from "@/layouts/AuthLayout";
+import { createUserWithEmailAndPassword, getAuth } from "@react-native-firebase/auth";
+import React, { useMemo, useState } from "react";
+import { Alert, StyleSheet, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function SignUp() {
@@ -28,7 +27,8 @@ export default function SignUp() {
 
     try {
       const trimmedEmail = email.trim().toLowerCase();
-      const userCredential = await auth().createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
+        getAuth(),
         trimmedEmail,
         pwd
       );

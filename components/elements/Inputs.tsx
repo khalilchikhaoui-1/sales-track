@@ -21,7 +21,7 @@ type InputProps = {
   error?: string;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
-
+  required?: boolean,
   leftIcon?: React.ReactNode;
   onLeftIconPress?: () => void;
 
@@ -40,6 +40,7 @@ export const Input: React.FC<InputProps> = ({
   leftIcon,
   onLeftIconPress,
   rightIcon,
+  required=false,
   onRightIconPress,
   passwordToggle = false,
   placeholderColor = COLORS.TEXT_LIGHT,
@@ -57,7 +58,7 @@ export const Input: React.FC<InputProps> = ({
 
   return (
     <View style={[styles.container, containerStyle]}>
-      {label ? <Text style={styles.label}>{label}</Text> : null}
+      {label ? <Text style={styles.label}>{label}{required && <Text style={{color:COLORS.ERROR}}>*</Text>}</Text> : null}
 
       <View style={styles.inputWrap}>
         <TextInput
@@ -152,7 +153,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 const styles = StyleSheet.create({
   container: { gap: 8 },
   label: {
-    fontFamily: "Sen-Regular",
+    fontFamily: "Sen-Medium",
     color: COLORS.SECONDARY,
     fontSize: 14,
     letterSpacing: 0.5,

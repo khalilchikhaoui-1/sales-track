@@ -1,7 +1,7 @@
-import AuthLayout from "@/AuthLayout";
 import { PrimaryButton } from "@/components/elements/Buttons";
 import { Input } from "@/components/elements/Inputs";
-import auth from "@react-native-firebase/auth";
+import AuthLayout from "@/layouts/AuthLayout";
+import { getAuth } from "@react-native-firebase/auth";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
@@ -18,7 +18,7 @@ export default function ForgotPassword() {
     }
     setLoading(true);
     try {
-      await auth().sendPasswordResetEmail(trimmed);
+      await getAuth().sendPasswordResetEmail(trimmed);
       Alert.alert("Email sent", "Check your inbox for reset instructions.");
       router.back();
     } catch (e: any) {

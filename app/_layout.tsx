@@ -3,9 +3,10 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StatusBar, StyleSheet } from "react-native";
 import FlashMessage from "react-native-flash-message";
 import "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { COLORS } from "../hooks/styles";
 import { store } from "../redux/store";
@@ -39,22 +40,19 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <ThemeProvider value={DefaultTheme}>
-        {Platform.OS === "ios" && <View style={styles.statusBarBackground} />}
-        <>
-          <StatusBar
-            backgroundColor={COLORS.PRIMARY}
+        <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+          <StatusBar 
             barStyle="light-content"
-            translucent={false}
           />
 
           <Stack screenOptions={{ headerShown: false, animation: "fade" }} />
 
           <FlashMessage
             position="top"
-            titleStyle={{ fontFamily: "San-SemiBold" }}
+            titleStyle={{ fontFamily: "San-SemiBold", }}
             textStyle={{ fontFamily: "Inter" }}
           />
-        </>
+        </SafeAreaView>
       </ThemeProvider>
     </Provider>
   );
